@@ -1,0 +1,42 @@
+/* tables begin::*/
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border: 0.3em solid rgba(125, 174, 214, 0.993);
+}
+  
+.homeworks-table thead th:nth-child(1) {
+    width: 10%;
+}
+  
+.homeworks-table thead th:nth-child(2) {
+    width: 65%;
+}
+  
+.homeworks-table thead th:nth-child(3) {
+    width: 25%;
+}
+  
+th, td {
+  padding: 0.8em;
+}
+ 
+tbody td {
+  text-align: center;
+}
+
+tfoot th {
+  text-align: right;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #bfe3f0d8;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #b0cfecd8;
+}
+
+/* tables end::*/

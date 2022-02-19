@@ -110,7 +110,7 @@ body {
 }
 
 .main-menu li {
-    margin-top: 0.2em;
+    margin-top: 0.4em;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, .1);
 }
 
@@ -132,44 +132,3 @@ body {
     text-shadow: 1px 1px 0 rgba(0, 0, 0, .1);
 }
 /* colors end::*/
-
-
-/* tables begin::*/
-
-.homeworks-table {
-    table-layout: fixed;
-    width: 100%;
-    border-collapse: collapse;
-    border: 3px solid rgb(61, 104, 245);
-  }
-  
-.homeworks-table  thead th:nth-child(1) {
-    width: 10%;
-  }
-  
-  .homeworks-table  thead th:nth-child(2) {
-    width: 40%;
-  }
-  
-  .homeworks-table thead th:nth-child(3) {
-    width: 15%;
-  }
-  
-  .homeworks-table thead th:nth-child(4) {
-    width: 35%;
-  }
-  
-  .homeworks-table th, td {
-    padding: 20px;
-  }
-
-  .homeworks-table tbody td {
-    text-align: center;
-  }
-  
-  .homeworks-table tfoot th {
-    text-align: right;
-  }
-  
-  
-/* tables end::*/
