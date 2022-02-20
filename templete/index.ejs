@@ -1,6 +1,48 @@
-<html>
-<%- include('./head.ejs', {page: page}); %>
-<%- include('./nav.ejs', {config: config}); %>
+<!DOCTYPE html>
+<html lang="zh-cn">
 
-<%- include('./footer.ejs', {config: config}); %>
+<head>
+    <%- include('./head.ejs', {page: page}); %>
+</head>
+
+<body>
+    <main class="main">
+
+    <%- include('./nav.ejs', {config: config}); %>
+
+    <div class="main-container">
+        <div class="main-container">
+            <h1>作业列表</h1>
+            <table class="homeworks-table">
+                <thead>
+                  <th>题号</th>
+                  <th>名称</th>
+                  <th>日期</th>
+                </thead>
+                <tbody>
+                    <%#<!--
+                        <tr>
+                            <td>P1</td>
+                            <td><a href="/problem/P1">第一个测试</a></td>
+                            <td>2021-01-11 01:03:55</td>
+                        </tr>
+                    -->%>
+                    <% for (let i = 0; i < index.table.length; i++) { 
+                        const line = index.table[i];%>
+                    <tr>
+                        <td><%= line.id %></td>
+                        <td><a href="/problem/<%= line.id %>"><%= line.name %></a></td>
+                        <td><%= line.date %></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+              </table>
+        </div>
+    </div>
+
+    <%- include('./footer.ejs', {config: config}); %>
+    
+    </main>
+</body>
+
 </html>

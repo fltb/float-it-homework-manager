@@ -1,0 +1,70 @@
+.main-container {
+    padding: 0.5em 2em 0.5em 2em;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2em;
+    background-color: rgba(245, 245, 245, 0);
+}
+.main-container > div{  
+    margin-top: 1em;
+    margin-bottom:1em;
+    padding: 1em;
+    border-radius: 1em;
+    background-color: #f8f8f8d0;
+    box-shadow: 0 0px 0.6px rgba(0, 0, 0, 0.028), 0 0px 1.3px rgba(0, 0, 0, 0.04), 0 0px 2.5px rgba(0, 0, 0, 0.05), 0 0px 4.5px rgba(0, 0, 0, 0.06), 0 0px 8.4px rgba(0, 0, 0, 0.072), 0 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.submit-bar * {
+    margin: 0;
+    padding: 0;
+}
+
+.submit-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.submit-bar button {
+    margin: 0.8em;
+    margin-top: auto;
+    width: 5em;
+    height: 2em;
+    font-size: 1em;
+    border: 0;
+    border-radius: 0.5em;
+    background-color: #5eb2e2;
+}
+
+.submit-bar button:hover {
+    background-color: #9dc4db;
+}
+
+.black_overlay {
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1001;
+  }
+  .white_content {
+    display: none;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    padding: 1em;
+    border-radius: 1em;
+    background-color: #f8f8f8d0;
+    box-shadow: 0 0px 0.6px rgba(0, 0, 0, 0.028), 0 0px 1.3px rgba(0, 0, 0, 0.04), 0 0px 2.5px rgba(0, 0, 0, 0.05), 0 0px 4.5px rgba(0, 0, 0, 0.06), 0 0px 8.4px rgba(0, 0, 0, 0.072), 0 0px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1002;
+    overflow: auto;
+  }
+
+.disable {
+    display: none;
+}

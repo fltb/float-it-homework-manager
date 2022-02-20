@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <%- include('./head.ejs', {page: page}); %>
+    <link rel="stylesheet" href="/src/css/login.css">
+</head>
+
+<body>
+    <main class="main">
+    <div class="login-container">
+        
+        <form action="/login" method="post">
+            <h1>请登录</h1>
+            <div>
+                <label for="username">登录名:</label>
+                <input type="text" id="username">
+            </div>
+            <div>
+                <label for="password">密码:</label>
+                <input type="password" id="password">
+            </div>
+            <div class="button">
+                <button type="submit">提交</button>
+            </div>              
+        </form>
+    </div>
+
+    <%- include('./footer.ejs', {config: config}); %>
+    
+    </main>
+</body>
+
+</html>

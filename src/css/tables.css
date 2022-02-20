@@ -6,19 +6,7 @@ table {
     border-collapse: collapse;
     border: 0.3em solid rgba(125, 174, 214, 0.993);
 }
-  
-.homeworks-table thead th:nth-child(1) {
-    width: 10%;
-}
-  
-.homeworks-table thead th:nth-child(2) {
-    width: 65%;
-}
-  
-.homeworks-table thead th:nth-child(3) {
-    width: 25%;
-}
-  
+
 th, td {
   padding: 0.8em;
 }
@@ -38,5 +26,27 @@ tbody tr:nth-child(odd) {
 tbody tr:nth-child(even) {
   background-color: #b0cfecd8;
 }
-
 /* tables end::*/
+
+/* homeworks begin::*/
+.homeworks-table thead th:nth-child(1) {
+    width: 10%;
+}
+  
+.homeworks-table thead th:nth-child(2) {
+    width: 65%;
+}
+  
+.homeworks-table thead th:nth-child(3) {
+    width: 25%;
+}
+
+.homeworks-table a {
+    color: #000000;
+}
+
+.homeworks-table a:hover {
+    color: #4e4e4e;
+    text-decoration: none;
+}
+/* homeworks end::*/

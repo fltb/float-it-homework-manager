@@ -2,7 +2,7 @@
 form {
     /* 居中表单 */
     margin: 0 auto;
-    margin-top: 7em;
+    margin-top: 2em;
     width: 25em;
     /* 显示表单的轮廓 */
     background-color: rgba(240, 248, 255, 0.8);
@@ -10,6 +10,9 @@ form {
     border: 1px solid #CCC;
     border-radius: 1em;
     box-shadow: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
   h1 {
