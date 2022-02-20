@@ -1,7 +1,7 @@
 .main-container {
     padding: 0.5em 2em 0.5em 2em;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 2.5fr 1fr;
     gap: 2em;
     background-color: rgba(245, 245, 245, 0);
 }
@@ -22,48 +22,93 @@
 .submit-bar {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1em;
 }
 
-.submit-bar button {
-    margin: 0.8em;
-    margin-top: auto;
+.button {
+    text-align: center;
+    font-weight: normal;
+    color: #000;
     width: 5em;
     height: 2em;
     font-size: 1em;
     border: 0;
     border-radius: 0.5em;
-    background-color: #5eb2e2;
+    background-color: #7cc5ec;
+    box-shadow: 0 0px 0.6px rgba(0, 0, 0, 0.028), 0 0px 1.3px rgba(0, 0, 0, 0.04), 0 0px 2.5px rgba(0, 0, 0, 0.05), 0 0px 4.5px rgba(0, 0, 0, 0.06), 0 0px 8.4px rgba(0, 0, 0, 0.072), 0 0px 20px rgba(0, 0, 0, 0.1);
 }
 
-.submit-bar button:hover {
-    background-color: #9dc4db;
+.button:hover {
+    background-color: #b9d1df;
 }
 
-.black_overlay {
-    display: none;
-    position: absolute;
+.black-overlay {
+    display: block;
+    position: fixed;
     top: 0%;
     left: 0%;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 1001;
-  }
-  .white_content {
-    display: none;
-    position: absolute;
-    top: 25%;
+}
+.submit-code {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 8%;
     left: 25%;
     width: 50%;
-    height: 50%;
+    height: 80%;
     padding: 1em;
     border-radius: 1em;
     background-color: #f8f8f8d0;
     box-shadow: 0 0px 0.6px rgba(0, 0, 0, 0.028), 0 0px 1.3px rgba(0, 0, 0, 0.04), 0 0px 2.5px rgba(0, 0, 0, 0.05), 0 0px 4.5px rgba(0, 0, 0, 0.06), 0 0px 8.4px rgba(0, 0, 0, 0.072), 0 0px 20px rgba(0, 0, 0, 0.1);
     z-index: 1002;
     overflow: auto;
-  }
+    gap: 1em;
+}
+.submit-code textarea {
+    height: 100%;
+    width: 99%;
+    font: 1em monospace;
+  
+    box-sizing: border-box;
+     
+    border: 1px solid #999;
+}
+
+.submit-code textarea:focus {
+    border-color: #000;
+}
+
+.submit-code textarea {
+    /* 使多行文本输入框和它们的label正确对齐 */
+    vertical-align: top;
+    background-color: #b6dbf05e;
+    border-radius: 0.3em;
+}
+
+
+.submit-code .buttons {
+    display: flex;
+    width: 100%;
+}
+
+.submit-code .buttons .button {
+    margin-right: 1em;
+}
+
+.submit-code .buttons .cancel-submit-code {
+    margin-left: auto;
+}
+  
+textarea:focus {
+    /* 给激活的元素一点高亮效果 */
+    border-color: #000;
+}
 
 .disable {
     display: none;

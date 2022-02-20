@@ -51,13 +51,19 @@ form {
     border-color: #000;
   }
   
-  textarea {
-    /* 使多行文本输入框和它们的label正确对齐 */
-    vertical-align: top;
-  
-    /* 给文本留下足够的空间 */
-    height: 5em;
-  }
+  input {
+    margin-left: 0.5em;
+    background-color: #99dbff5e;
+    border-radius: 0.3em;
+}
+
+input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+    input[type="number"]{
+        -moz-appearance: textfield;
+    }
   
   .button {
     /* 把按钮放到和文本输入框一样的位置 */

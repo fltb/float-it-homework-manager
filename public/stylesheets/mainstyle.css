@@ -221,7 +221,7 @@
     display: flex;
     margin-left: auto;
     margin-right: auto;
-    width: 60em;
+    width: 50em;
     padding: 0.5em 2em 0.5em 2em;
     border-radius: 0.8em;
 
@@ -233,7 +233,7 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    width: 64em;
+    width: 54em;
 }
 
 .main-menu {
@@ -278,17 +278,17 @@
     flex: 1;
 }
 
-@media (max-width: 64em) {
+@media (max-width: 60em) {
     .site-nav { 
         margin: 0;
         width: 90%;
-        width: calc(100% - 5em);
+        width: calc(100% - 4em);
     }
     .main {
         width: 100%;
     }
 }
-@media (max-width: 500px) {
+@media (max-width: 499px) {
     .site-title {
         display: none;
     }
@@ -311,7 +311,7 @@
 /* colors begin::*/
 body {
     background-color: #48e4ef;
-    background-image: url("/src/img/pexels-janez-podnar-1424246.jpg");
+    background-image: url("/images/pexels-janez-podnar-1424246.jpg");
     background-size:100%;
 }
 
