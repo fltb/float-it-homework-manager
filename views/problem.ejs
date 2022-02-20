@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <%- include('./head.ejs', {page: page}); %>
+    <link rel="stylesheet" href="/stylesheets/problem.css">
+</head>
+
+<body>
+    <main class="main">
+
+    <%- include('./nav.ejs', {config: config}); %>
+
+    <div class="main-container">
+        <div class="problem-description">
+            <%- problem.content %>
+        </div>
+        <% const status = problem.submitted ? "已交" : "未交"; %>
+        <div class="submit-bar">
+            <h2>相关信息</h2>
+            <div class="status">状态: <%= status %></div>
+            <div class="peoples">已提交: <%= problem.submittedPersonNumber %>人</div>
+            <button onclick="showSubmitDiv()" class="button submit">提交</button>
+        </div>
+    </div>
+    <%- include('./footer.ejs', {config: config}); %>
+    
+    </main>
+
+    <div class="disable black-overlay">a</div>
+    <form class="disable submit-code" action="" method="post">
+        <h2>提交代码</h2>
+        <textarea name="code" id="code" cols="30" rows="10" placeholder="在此处粘贴您的代码"></textarea>
+        <div class="buttons">
+            <button type="button" class="button cancel-submit-code">取消</button>
+            <button type="submit" class="button submit-code-button">提交</button>
+        </div>
+    </form>
+
+    <script src="/javascripts/problem.js"></script>
+</body>
+
+</html>

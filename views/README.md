@@ -19,4 +19,10 @@ index: {
         date: String // yyyy-mm-dd hh:mm:ss
     }>,
 }
+// for problem
+problem: {
+    content: String, // HTML
+    submitted: Boolean,
+    submittedPersonNumber: Number
+}
 ```
