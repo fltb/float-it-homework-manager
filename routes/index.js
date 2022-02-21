@@ -22,7 +22,8 @@ router.get('/', async function(req, res, next) {
   res.render('index', { 
     config: config,
     page: {
-      title: "首页"
+      title: "首页",
+      userName: "Float"
     },
     index: {
       table: testInput

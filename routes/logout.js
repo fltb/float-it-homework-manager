@@ -4,7 +4,7 @@ const router = express.Router();
 /* GET logout listing. */
 router.get('/', function(req, res, next) {
     setTimeout(function() {
-        res.redirect('/login')
+        res.redirect('/login');
     }, 500);
 });
 

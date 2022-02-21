@@ -22,7 +22,8 @@ router.get(/(\d+)/, function(req, res, next) {
   res.render('problem', {
     config: config,
     page: {
-        title: "题目-" + pid
+        title: "题目-" + pid,
+        userName: "Float"
     },
     problem: {
       pid: pid,
