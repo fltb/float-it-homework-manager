@@ -95,3 +95,10 @@ input::-webkit-outer-spin-button,
   div {
       margin-top: 1em;
   }
+
+  .notice {
+    margin: 1em 2em 1em 2em;
+    padding: 0.2em 1em 0.2em 1em;
+    border-radius: 0.5em;
+    background-color: #99dbff9d;
+}

@@ -21,7 +21,7 @@ window.addEventListener("load", function () {
 
             notice.textContent = event.target.responseText;
             if (event.target.responseText === "success") {
-                window.location.href = '/login';
+                window.location.href = '/';
             }
         });
 
@@ -31,7 +31,7 @@ window.addEventListener("load", function () {
         });
 
         // 我们设置了我们的请求
-        XHR.open("POST", "/register");
+        XHR.open("POST", "/login");
 
         XHR.setRequestHeader('Content-Type', 'application/json');
 
