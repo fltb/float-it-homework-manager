@@ -10,6 +10,7 @@ config: {
 }
 page: {
     title: String,
+    userName: String // not for register and login
 }
 // for index
 index: {

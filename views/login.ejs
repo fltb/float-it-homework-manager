@@ -10,24 +10,27 @@
     <main class="main">
     <div class="login-container">
         
-        <form action="/login" method="post">
+        <form id="my-form" method="post">
             <h1>请登录</h1>
+            <div class="notice">
+                使用网站之前, 请先登录。如没有帐号, 请 <a href="/register">注册帐号</a>。
+            </div>
             <div>
                 <label for="username">登录名:</label>
-                <input required type="text" id="username">
+                <input required type="text" id="username" name="username">
             </div>
             <div>
                 <label for="password">密码:</label>
-                <input required type="password" id="password">
+                <input required type="password" id="password" name="password">
             </div>
             <div class="button">
                 <button type="submit">提交</button>
-            </div>              
+            </div>
         </form>
     </div>
 
     <%- include('./footer.ejs', {config: config}); %>
-    
+    <script src="/javascripts/login.js"></script>
     </main>
 </body>
 
