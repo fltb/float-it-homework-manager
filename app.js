@@ -4,12 +4,13 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const crypto = require('crypto');
+const session = require("express-session");
 
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
-const problemRouter = require('./routes/problem')
-const logoutRouter = require("./routes/logout")
+const problemRouter = require('./routes/problem');
+const logoutRouter = require("./routes/logout");
 
 const app = express();
 
@@ -22,6 +23,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: crypto.randomUUID(),
+  name: "my-session-id",
+  cookie: { maxAge: 60000},
+  resave: false, 
+  saveUninitialized: true
+}));
+
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
