@@ -21,6 +21,12 @@ window.addEventListener("load", function () {
 
             notice.textContent = event.target.responseText;
             if (event.target.responseText === "success") {
+                const link = document.createElement("a");
+
+                link.setAttribute('href', "/login");
+                link.textContent = '手动跳转';
+                notice.textContent = "登录成功，正在跳转到登录页，如果您的浏览器没有自动跳转，请";
+                notice.appendChild(link);
                 window.location.href = '/login';
             }
         });
