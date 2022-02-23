@@ -1,17 +1,13 @@
-const { signedCookie } = require('cookie-parser');
 const express = require('express');
 const router = express.Router();
-const bodyParser = require('body-parser')
 
 const config = require("../lib/config").getConfig();
 const userManager = require("../lib/users")
 
 /* GET login listing. */
-router.get('/', function(req, res, next) {
-    if (req.cookies.token) {
-        if (userManager.isLogin(req.cookies.token)) {
-            res.redirect("/");
-        }
+router.get('/', async function(req, res, next) {
+    if (req.session.uid && await userManager.getUser(req.session.uid) !== null) {
+        res.redirect("/");
     }
     res.render('login', {
         config: config,
@@ -21,9 +17,14 @@ router.get('/', function(req, res, next) {
     })
 });
 
-router.post('/', function(req, res, next) {
-    console.log(req.body);
-    res.send("来自服务端的提示")
+router.post('/', async function(req, res, next) {
+    try {
+        const id = await userManager.login(req.body.loginName, req.body.password);
+        req.session.uid = id;
+        res.send("success");
+    } catch (err) {
+        res.send(err.toString());
+    }
 });
 
 module.exports = router;

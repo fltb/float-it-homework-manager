@@ -5,11 +5,14 @@ const md = require('markdown-it')();
 const router = express.Router();
 
 const config = require("../lib/config").getConfig();
+const userManager = require("../lib/users")
 
 /* GET problem listing. */
-router.get(/(\d+)/, function(req, res, next) {
+router.get(/(\d+)/, async function(req, res, next) {
+  if (!req.session.uid || await userManager.getUser(req.session.uid) === null) {
+    res.redirect("/login");
+  }
   const pid = req.params[0];
-
 
   const testMD = `
 # 测试用的问题

@@ -2,9 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 const config = require("../lib/config").getConfig();
+const userManager = require("../lib/users")
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
+  if (!req.session.uid || await userManager.getUser(req.session.uid) === null) {
+    res.redirect("/login");
+  }
   const testInput = [{
     id: 1,
     name: "测试标题一",
