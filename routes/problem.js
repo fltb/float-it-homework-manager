@@ -9,8 +9,16 @@ const userManager = require("../lib/users")
 
 /* GET problem listing. */
 router.get(/(\d+)/, async function(req, res, next) {
-  if (!req.session.uid || await userManager.getUser(req.session.uid) === null) {
+  let user;
+  if (!req.session.uid) {
     res.redirect("/login");
+    return;
+  } else {
+    user = await userManager.getUser(req.session.uid);
+    if (user === null) {
+      res.redirect("/login");
+      return;
+    }
   }
   const pid = req.params[0];
 
@@ -26,7 +34,7 @@ router.get(/(\d+)/, async function(req, res, next) {
     config: config,
     page: {
         title: "题目-" + pid,
-        userName: "Float"
+        userName: user.loginName
     },
     problem: {
       pid: pid,
