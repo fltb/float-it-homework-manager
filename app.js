@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const crypto = require('crypto');
 const session = require("express-session");
 
 const indexRouter = require('./routes/index');
@@ -24,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret: crypto.randomUUID(),
+  secret: Math.random().toString(16).substring(2, 16),
   name: "my-session-id",
   cookie: { maxAge: 60000},
   resave: false, 
