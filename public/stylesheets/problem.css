@@ -1,8 +1,8 @@
 .main-container {
-    padding: 0.5em 2em 0.5em 2em;
+    padding: 0.5em 0.8em 0.5em 0.8em;
     display: grid;
     grid-template-columns: 2.5fr 1fr;
-    gap: 2em;
+    gap: 0.8em;
     background-color: rgba(245, 245, 245, 0);
 }
 .main-container > div{  

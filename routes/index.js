@@ -3,34 +3,31 @@ const router = express.Router();
 
 const config = require("../lib/config").getConfig();
 const userManager = require("../lib/users")
-
+const problemManager = require("../lib/problems");
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  if (!req.session.uid || await userManager.getUser(req.session.uid) === null) {
+  let user;
+  if (!req.session.uid) {
     res.redirect("/login");
+    return;
+  } else {
+    user = await userManager.getUser(req.session.uid);
+    if (user === null) {
+      res.redirect("/login");
+      return;
+    }
   }
-  const testInput = [{
-    id: 1,
-    name: "测试标题一",
-    date: "2021-11-05 22:44:10"
-  }, {
-    id: 2,
-    name: "测试标题二",
-    date: "2021-11-05 22:44:10"
-  }, {
-    id: 1,
-    name: "测试标题三",
-    date: "2021-11-05 22:44:10"
-  },];
+
+  const problems = await problemManager.getAll();
   
   res.render('index', { 
     config: config,
     page: {
       title: "首页",
-      userName: "Float"
+      userName: user.loginName
     },
     index: {
-      table: testInput
+      table: problems
     }
   });
 });

@@ -16,8 +16,8 @@ page: {
 index: {
     table: Array<{
         id: Number,
-        name: String,
-        date: String // yyyy-mm-dd hh:mm:ss
+        title: String,
+        updatedAt: String // yyyy-mm-dd hh:mm:ss
     }>,
 }
 // for problem

@@ -30,8 +30,8 @@
                     const line = index.table[i];%>
                 <tr>
                     <td><%= line.id %></td>
-                    <td><a href="/problem/<%= line.id %>"><%= line.name %></a></td>
-                    <td><%= line.date %></td>
+                    <td><a href="/problem/<%= line.id %>"><%= line.title %></a></td>
+                    <td><%= line.updatedAt %></td>
                 </tr>
                 <% } %>
             </tbody>
