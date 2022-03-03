@@ -1,0 +1,278 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+"use strict";
+
+const config = require("../lib/config");
+const problemManager = require("../lib/problems");
+const submitManager = require("../lib/submits");
+const userManager = require("../lib/users");
+
+const { program, Command } = require('commander');
+const { User, Problem, Submit } = require("../lib/dataDefinations");
+const xlsx = require("node-xlsx");
+const fse = require("fs-extra");
+const path = require("path");
+const readlineSync = require('readline-sync');
+
+const { exit } = require("process");
+
+const user = program
+    .command('user')
+    .description('用来管理用户相关信息');
+
+user
+    .command("list")
+    .description("列出相关的用户")
+    .option('-ln, --loginname <name>', '登录名')
+    .option('-ey, --enrollmentyear <number>', '入学年份')
+    .option('-cn, --classnumber <number>', '班级编号')
+    .option('-rn, --realname <name>', '真实姓名')
+    .action(async function (options, command) {
+        let where = {
+            loginName: options.loginname,
+            enrollmentYear: options.enrollmentyear,
+            classNumber: options.classnumber,
+            realName: options.realname
+        };
+        console.log("listing")
+        let has = false;
+        Object.entries(where).forEach(entry => {
+            const [key, value] = entry;
+            if (key in where) {
+                if (where[key]) {
+                    has = true;
+                } else {
+                    delete where[key];
+                }
+            }
+        });
+
+        let allUsers;
+        if (has) {
+            allUsers = await User.findAll({
+                where: where
+            });
+        } else {
+            allUsers = await User.findAll();
+        }
+
+        console.log("\tID\t登录名称\t真实姓名\t班级\t入学年份")
+        allUsers.forEach(function (user) {
+            console.log(
+                "\t" + user.id + '\t' + user.loginName +
+                '\t' + user.realName + '\t' + user.classNumber +
+                '\t' + user.enrollmentYear
+            );
+        });
+    })
+
+user
+    .command('reset <uid>')
+    .description('重设指定 ID 的用户信息')
+    .option('-ln, --loginname <name>', '登录名')
+    .option('-ey, --enrollmentyear <number>', '入学年份')
+    .option('-cn, --classnumber <number>', '班级编号')
+    .option('-rn, --realname <name>', '真实姓名')
+    .option('-pw, --password <password>', '密码')
+    .action(async function (uid, options, command) {
+        let infos = {
+            loginName: options.loginname,
+            enrollmentYear: options.enrollmentyear,
+            classNumber: options.classnumber,
+            realName: options.realname,
+            password: options.password
+        };
+        const user = await User.findByPk(uid);
+
+        console.log(`请确认是否要重设 ID ${uid} 的用户: `);
+        console.log(JSON.stringify(user));
+
+        console.log("重新设置为: " + JSON.stringify(infos))
+
+        const ans = readlineSync.question("[Y/n]")
+        if (ans === "Y" || ans === 'y') {
+            try {
+                await userManager.ResetUser(uid, infos);
+            } catch (err) {
+                console.log(err.toString());
+            }
+        } else {
+            console.log("已取消");
+        }
+    });
+
+user
+    .command('delete <uid>')
+    .description('删除指定 ID 的用户')
+    .action(async function (uid, options, command) {
+        const user = await User.findByPk(uid);
+
+        console.log(`请确认是否要删除 ID ${uid} 的用户: `);
+        console.log(JSON.stringify(user));
+
+        const ans = readlineSync.question("[Y/n]")
+        if (ans === "Y" || ans === 'y') {
+            try {
+                await userManager.delete(uid);
+            } catch (err) {
+                console.log(err.toString());
+            }
+        } else {
+            console.log("已取消");
+        }
+    })
+
+user
+    .command('to_excel')
+    .description('导出所有用户的信息为 Excel')
+    .action(async function (options, command) {
+        /**@type {Array<User>} */
+        let users = await User.findAll();
+
+        let datas = [
+            ["ID", "姓名", "入学年份", "班级", "登录名", "注册时间"]
+        ];
+
+        for (let i = 0; i < users.length; i++) {
+            const usr = users[i];
+            datas.push([usr.id, usr.realName, usr.enrollmentYear, usr.classNumber, usr.loginName, usr.createdAt])
+        };
+
+        const buffer = xlsx.build([{ name: "用户名单", data: datas }]);
+        const pth = path.join(__dirname, "..", "用户名单.xlsx");
+        await fse.writeFile(pth, buffer);
+        console.log(`导出到: ${pth}`);
+        return;
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+const problem = program.command('problem').description("用来进行题目相关操作");
+
+problem
+    .command('new <title>')
+    .description('新建指定的标题的题目')
+    .action(async function (title, options, command) {
+        try {
+            await problemManager.create(title);
+        } catch (err) {
+            console.log(err.toString());
+        }
+    });
+
+problem
+    .command('rename <pid> <title>')
+    .description('修改指定 ID 题目的标题')
+    .action(async function (pid, title, options, command) {
+        try {
+            let problem = await Problem.findByPk(pid);
+            if (problem === null) {
+                console.log("未找到该题目");
+                return;
+            }
+            console.log(`请确认是否要修改 ID ${pid} 的题目: ${problem.title} 标题为 ${title}`);
+            const ans = readlineSync.question("[Y/n]")
+            if (ans === "Y" || ans === 'y') {
+                await fse.rename(config.getProblemPath(problem.title), config.getProblemPath(title));
+                problem.title = title;
+                await problem.save();
+            } else {
+                console.log("已取消");
+            }
+        } catch (err) {
+            console.log(err.toString());
+        }
+    });
+
+problem
+    .command('delete <id>')
+    .description('删除指定的 ID 的题目')
+    .action(async function (id, options, command) {
+        const problem = await Problem.findByPk(parseInt(id));
+        console.log(`请确认是否要删除 ID ${id} 的题目: ${problem.title}`);
+        const ans = readlineSync.question("[Y/n]")
+        if (ans === "Y" || ans === 'y') {
+            try {
+                await problemManager.delete(id);
+            } catch (err) {
+                console.log(err.toString());
+            }
+        } else {
+            console.log("已取消");
+        }
+    });
+
+problem
+    .command('list')
+    .description('导出所有题目的信息为 Excel')
+    .option('-t, --title <title>', '列出指定标题的题目。')
+    .action(async function (options, command) {
+        /**@type {Array<User>} */
+        let problems;
+
+        if (options.title) {
+            problems = await Problem.findAll({
+                where: {
+                    title: options.title
+                }
+            });
+        }
+
+        problems = await Problem.findAll();
+
+        console.log('\tID\t标题');
+
+
+        for (let i = 0; i < problems.length; i++) {
+            const problem = problems[i];
+            console.log(`\t${problem.id}\t${problem.title}`);
+        };
+        return;
+    });
+
+const submit = program.command('submit').description("导出提交信息");
+
+submit
+    .command('to_excel')
+    .description('导出提交信息到 Excel, 默认为全部信息')
+    .option('-u, --user <uid>', '指定 ID 的学生')
+    .option('-p, --problem <pid>', '指定题目的缺交')
+    .option('-l, --lack', '是否包括缺交的学生, 默认不包括')
+    .action(async function (options, command) {
+        await submitManager.toExcel(options.problem, options.user);
+        if (options.lack) {
+            await submitManager.toLackExcel(options.problem, options.user);
+        }
+        return;
+    });
+
+program
+    .command('exit')
+    .description("退出程序")
+    .action(function() {
+        exit(0);
+    });
+
+async function main() {
+    while (true) {
+        let line = readlineSync.question('> ').split(' ');
+        line = [...process.argv, ...line];
+        await program.parseAsync(line);
+    }
+}
+
+main()
