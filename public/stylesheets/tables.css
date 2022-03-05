@@ -30,15 +30,15 @@ tbody tr:nth-child(even) {
 
 /* homeworks begin::*/
 .homeworks-table thead th:nth-child(1) {
-    width: 10%;
+    width: 8%;
 }
   
 .homeworks-table thead th:nth-child(2) {
-    width: 65%;
+    width: 64%;
 }
   
 .homeworks-table thead th:nth-child(3) {
-    width: 25%;
+    width: 28%;
 }
 
 .homeworks-table a {

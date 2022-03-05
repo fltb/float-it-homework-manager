@@ -31,7 +31,7 @@
                 <tr>
                     <td><%= line.id %></td>
                     <td><a href="/problem/<%= line.id %>"><%= line.title %></a></td>
-                    <td><%= line.updatedAt %></td>
+                    <td><%= new Date(line.updatedAt).toISOString() %></td>
                 </tr>
                 <% } %>
             </tbody>
