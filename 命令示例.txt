@@ -1,0 +1,31 @@
+命令行有三个主要命令，分别是 user problem submit，分别管理用户，题目和提交的信息。
+每个命令有一系列子命令，每个命令又有一些参数和选项。命令树如下：
+
+user：
+    list [选项] 列出用户信息。user list 默认列出所有用户。使用参数可以筛选。
+        比如 user list -ln 123 可以查看登录名为 123 的用户。可以使用 user list -h 查看所有可以指定的选项。
+        选项有：
+            -ln, --loginname <name>         登录名
+            -ey, --enrollmentyear <number>  入学年份
+            -cn, --classnumber <number>     班级编号
+            -rn, --realname <name>          真实姓名
+    reset <uid> [选项] 重设指定 ID 用户的信息。使用参数改变指定信息，
+        如 user reset 1 --loginname abc 重设 ID 为 1 的用户登录名为 abc，同样可以加上 -h 查看选项。
+    delete <uid> 删除指定 ID 的用户。user delete 2 删除 ID 为 2 的用户。
+    to_excel 导出用户名单到 Excel 文件，方便查看。 user to_excel
+
+problem:
+    new <title>           新建指定的标题的题目。如 problem new 124。注意不要重命名生成后的文件，否则会404。
+                          如果要改名请用 problem rename <pid> <title>
+
+    rename <pid> <title>  修改指定 ID 题目的标题。
+    delete <id>           删除指定的 ID 的题目
+    list [options]        列出所有题目的信息
+
+submit:
+    to_excel [options] 导出所有提交信息到 excel。
+        可选选项：
+            -u, --user <uid>     指定 ID 的学生
+            -p, --problem <pid>  指定题目的缺交
+            -l, --lack           是否包括缺交的学生, 默认不包括
+        比如 submit to_excel -l 列出所有缺交学生名单。
