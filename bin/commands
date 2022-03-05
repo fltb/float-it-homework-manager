@@ -27,6 +27,7 @@ const user = program
 user
     .command("list")
     .description("列出相关的用户")
+    .exitOverride()
     .option('-ln, --loginname <name>', '登录名')
     .option('-ey, --enrollmentyear <number>', '入学年份')
     .option('-cn, --classnumber <number>', '班级编号')
@@ -73,6 +74,7 @@ user
 user
     .command('reset <uid>')
     .description('重设指定 ID 的用户信息')
+    .exitOverride()
     .option('-ln, --loginname <name>', '登录名')
     .option('-ey, --enrollmentyear <number>', '入学年份')
     .option('-cn, --classnumber <number>', '班级编号')
@@ -108,6 +110,7 @@ user
 user
     .command('delete <uid>')
     .description('删除指定 ID 的用户')
+    .exitOverride()
     .action(async function (uid, options, command) {
         const user = await User.findByPk(uid);
 
@@ -129,6 +132,7 @@ user
 user
     .command('to_excel')
     .description('导出所有用户的信息为 Excel')
+    .exitOverride()
     .action(async function (options, command) {
         /**@type {Array<User>} */
         let users = await User.findAll();
@@ -166,9 +170,11 @@ const problem = program.command('problem').description("用来进行题目相关
 problem
     .command('new <title>')
     .description('新建指定的标题的题目')
+    .exitOverride()
     .action(async function (title, options, command) {
         try {
             await problemManager.create(title);
+            console.log("注意不要重命名生成后的文件，否则会404。如果要改名请用 problem rename <pid> <title>");
         } catch (err) {
             console.log(err.toString());
         }
@@ -177,6 +183,7 @@ problem
 problem
     .command('rename <pid> <title>')
     .description('修改指定 ID 题目的标题')
+    .exitOverride()
     .action(async function (pid, title, options, command) {
         try {
             let problem = await Problem.findByPk(pid);
@@ -201,6 +208,7 @@ problem
 problem
     .command('delete <id>')
     .description('删除指定的 ID 的题目')
+    .exitOverride()
     .action(async function (id, options, command) {
         const problem = await Problem.findByPk(parseInt(id));
         console.log(`请确认是否要删除 ID ${id} 的题目: ${problem.title}`);
@@ -218,7 +226,8 @@ problem
 
 problem
     .command('list')
-    .description('导出所有题目的信息为 Excel')
+    .description('列出所有题目的信息')
+    .exitOverride()
     .option('-t, --title <title>', '列出指定标题的题目。')
     .action(async function (options, command) {
         /**@type {Array<User>} */
@@ -249,6 +258,7 @@ const submit = program.command('submit').description("导出提交信息");
 submit
     .command('to_excel')
     .description('导出提交信息到 Excel, 默认为全部信息')
+    .exitOverride()
     .option('-u, --user <uid>', '指定 ID 的学生')
     .option('-p, --problem <pid>', '指定题目的缺交')
     .option('-l, --lack', '是否包括缺交的学生, 默认不包括')
@@ -267,11 +277,26 @@ program
         exit(0);
     });
 
+user.exitOverride();
+problem.exitOverride();
+submit.exitOverride();
+program.exitOverride();
+
 async function main() {
     while (true) {
         let line = readlineSync.question('> ').split(' ');
         line = [...process.argv, ...line];
-        await program.parseAsync(line);
+        try {
+            await program.parseAsync(line);
+        } catch (err) {
+            if (err.exitCode === 0 || err.code === 'commander.help') {
+                continue;
+            } else if (err.code === 'commander.unknownCommand') {
+                console.log("未知命令, 请使用 help 命令查看可用命令");
+            } else {
+                console.log(err);
+            }
+        }
     }
 }
 
