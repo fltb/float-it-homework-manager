@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <%- include('./head.ejs', {page: page}); %>
+    <link rel="stylesheet" href="/stylesheets/admin.css">
+</head>
+
+<body>
+    <main class="main">
+
+    <%- include('./nav.ejs', {config: config, page: page}); %>
+    
+    <div class="disable black-overlay"></div>
+    <div class="disable check">
+        <div class="notice">请确认操作</div>
+        <div class="buttons">
+            <button type="button" class="button cancel-button">取消</button>
+            <button type="button" class="button ok-button">提交</button>
+        </div>
+    </form>
+
+    <div class="main-container">
+        <div class="guiding-area">
+            <ul class="categories-tab-links">
+                <li>
+                    <a href="/admin/user/" class="categories-tab-link <% if (admin.active.user) { %> active <% } %>">
+                        用户
+                    </a>
+                    <a href="/admin/problem/" class="categories-tab-link <% if (admin.active.problem) { %> active <% } %>">
+                        问题
+                    </a>
+                    <a href="/admin/submit/" class="categories-tab-link <% if (admin.active.submit) { %> active <% } %>">
+                        提交
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content-area">
+            <%- admin.content %>
+        </div>
+
+    </div>
+
+    <%- include('./footer.ejs', {config: config}); %>
+    
+    </main>
+</body>
+
+</html>

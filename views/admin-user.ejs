@@ -1,0 +1,39 @@
+<%- include('./admin-base.ejs', {config: config, page: page, admin: {
+    active: {
+        user: true
+    },
+    content: `
+    <div class="actions">
+        <button type="button" id="to_excel">导出 Excel</button>
+    </div>
+    <table class="user-table">
+        <thead>
+            <th>ID</th>
+            <th>登录名</th>
+            <th>姓名</th>
+            <th>入学年份</th>
+            <th>班级</th>
+            <th>注册日期</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+            <% for (let i = 0; i < admin.users.length; i++) { 
+                const line = admin.users[i];%>
+            <tr>
+                <td><%= line.id %></td>
+                <td><%= line.loginName %></td>
+                <td><%= line.realName %></td>
+                <td><%= line.enrollmentYear %></td>
+                <td><%= line.classNumber %></td>
+                <td><%= new Date(line.createdAt).toISOString() %></td>
+                <td>
+                    <button type="button" onclick="deleteUser(<%= line.id %>)" id="">删除</button>
+                    <button type="button" onclick="modifyUser(<%= line.id %>)"></button>
+                </td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <script src="/javascripts/adminUser.js"></script>
+    `
+}}); %>

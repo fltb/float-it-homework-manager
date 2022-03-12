@@ -26,4 +26,16 @@ problem: {
     submitted: Boolean,
     submittedPersonNumber: Number
 }
+
+//for admin
+admin: {
+    active: {
+        user: Boolean,
+        submit: Boolean,
+        problem: Boolean
+    },
+    content: String // HTML
+    // for user
+    users: Array<User>
+}
 ```
