@@ -38,4 +38,11 @@ admin: {
     // for user
     users: Array<User>
 }
+
+problemEditor: {
+    noticeText: String,
+    content: String // md
+    title: String // optinal
+    id： Number // optinal
+}
 ```
