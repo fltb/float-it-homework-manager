@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/images/logo.png">
+    <link rel="stylesheet" href="/lib/editor.md-master/css/editormd.css" />
+    <title><%= page.title + '-' + config.siteTitle %></title>
+</head>
+
+<body>
+    <h1>编辑题目</h1>
+    <form id="my-form" method="post" action="">
+        <div class="notice">
+            <%- problemEditor.noticeText %>
+        </div>
+        <div>
+            <label for="title">标题:</label>
+            <input type="text" id="title" placeholder="在此处输入标题" name="title" <% if (problemEditor.title) { %>value="<%= problemEditor.title %>"<% } %>>
+        </div>
+        <div id="test-editormd">
+            <!-- Custom textarea name attribute <textarea style="display:none;" name="test-textarea-name"> -->
+            <textarea style="display:none;" name="content"><%- problemEditor.content %></textarea>
+        </div>
+        <div class="button">
+            <button type="submit">提交</button>
+        </div>
+    </form>
+
+    <%- include('./footer.ejs', {config: config}); %>
+    </main>
+    <script src="/javascripts/jquery.js"></script>
+    <script src="/lib/editor.md-master/editormd.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var editor = editormd("test-editormd", {
+                // width  : "100%",
+                // height : "100%",
+                path: "/lib/editor.md-master/lib/"
+            });
+        });
+    </script></body>
+</html>
