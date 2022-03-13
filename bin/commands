@@ -98,7 +98,7 @@ user
         const ans = readlineSync.question("[Y/n]")
         if (ans === "Y" || ans === 'y') {
             try {
-                await userManager.ResetUser(uid, infos);
+                await userManager.ResetUser(uid, infos, true);
             } catch (err) {
                 console.log(err.toString());
             }
@@ -263,10 +263,16 @@ submit
     .option('-p, --problem <pid>', '指定题目的缺交')
     .option('-l, --lack', '是否包括缺交的学生, 默认不包括')
     .action(async function (options, command) {
-        await submitManager.toExcel(options.problem, options.user);
+        let buffer, pth;
         if (options.lack) {
-            await submitManager.toLackExcel(options.problem, options.user);
+            buffer = await submitManager.toLackExcel(options.problem, options.user);
+            pth = path.join(__dirname, "..", "缺交名单.xlsx");
+        } else {
+            buffer = await submitManager.toExcel(options.problem, options.user);
+            pth = path.join(__dirname, "..", "提交名单.xlsx");
         }
+        await fse.writeFile(pth, buffer);
+        console.log(`导出到: ${pth}`);
         return;
     });
 
