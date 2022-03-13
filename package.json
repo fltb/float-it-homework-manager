@@ -9,6 +9,7 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "commander": "^9.0.0",
+    "content-disposition": "^0.5.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
