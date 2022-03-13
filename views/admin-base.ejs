@@ -9,7 +9,17 @@
 <body>
     <main class="main">
 
-    <%- include('./nav.ejs', {config: config, page: page}); %>
+    <nav class="site-nav">
+        <div class="site-meta">
+            <a href="/" class="brand" rel="start">
+                <span class="site-title">管理员页面</span>
+            </a>
+        </div>
+        <ul class="main-menu">
+            <li><a href="/">ADMIN</a></li>
+            <li><a href="/logout">退出登录</a></li>
+        </ul>
+    </nav>
     
     <div class="disable black-overlay"></div>
     <div class="disable check">
@@ -18,7 +28,7 @@
             <button type="button" class="button cancel-button">取消</button>
             <button type="button" class="button ok-button">提交</button>
         </div>
-    </form>
+    </div>
 
     <div class="main-container">
         <div class="guiding-area">
@@ -27,9 +37,13 @@
                     <a href="/admin/user/" class="categories-tab-link <% if (admin.active.user) { %> active <% } %>">
                         用户
                     </a>
+                </li>
+                <li>
                     <a href="/admin/problem/" class="categories-tab-link <% if (admin.active.problem) { %> active <% } %>">
                         问题
                     </a>
+                </li>
+                <li>
                     <a href="/admin/submit/" class="categories-tab-link <% if (admin.active.submit) { %> active <% } %>">
                         提交
                     </a>
