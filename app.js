@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: Math.random().toString(16).substring(2, 16),
   name: "my-session-id",
-  cookie: { maxAge: 60000},
+  cookie: { maxAge: 60000, sameSite: true},
   resave: false, 
   saveUninitialized: true
 }));
