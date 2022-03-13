@@ -198,7 +198,7 @@
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 1001;
 }
-.check {
+.check, .modify-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -216,6 +216,12 @@
     gap: 1em;
 }
 
+.modify-form {
+    top: 10%;
+    left: 25%;
+    width: 50%;
+    height: 80%;
+}
 
 .check .buttons {
     display: flex;
