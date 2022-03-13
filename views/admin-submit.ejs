@@ -1,0 +1,23 @@
+<p>如果想要查看用户代码，请到系统的文件夹对应位置查看文件: <%= filePath %></p>
+
+<div class="actions">
+    <a href="/admin/submit/to_excel" id="to_excel">导出 Excel</a>
+    <a href="/admin/submit/to_lack_excel" id="to_excel">导出缺交的 Excel</a>
+</div>
+<table class="problem-table">
+    <thead>
+        <% for (let j = 0; j < datas[0].length; j++) { %>
+            <td><%= datas[0][j] %></td>
+        <% } %>
+    </thead>
+    <tbody>
+        <% for (let i = 1; i < datas.length; i++) { 
+            const line = datas[i];%>
+        <tr>
+            <% for (let j = 0; j < line.length; j++) { %>
+            <td><%= line[j] %></td>
+            <% } %>
+        </tr>
+        <% } %>
+    </tbody>
+</table>
